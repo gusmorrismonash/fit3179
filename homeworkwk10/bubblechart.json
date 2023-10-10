@@ -1,0 +1,111 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width": 500,
+    "height": 500,
+    "title": "Price vs Distance from CBD",
+    "data": {
+        "url": "data/Melbourne_housing_FULL.csv"
+    },
+    "params": [
+        {
+            "name": "type_selection",
+            "bind": {
+                "input": "select",
+                "options": [
+                    null,
+                    "h",
+                    "t",
+                    "u"
+                ],
+                "labels": [
+                    "Show All",
+                    "House",
+                    "Townhouse",
+                    "Unit"
+                ],
+                "name": "Type Selection"
+            }
+        },
+        {
+        "name": "min_x",
+        "value": 0,
+        "bind": {
+          "input": "range",
+          "min": 0,
+          "max": 50,
+          "name": "Min Distance"
+        }
+    },
+    {
+        "name": "max_x",
+        "value": 50,
+        "bind": {
+          "input": "range",
+          "min": 0,
+          "max": 50,
+          "name": "Max Distance"
+        }
+      }],
+    "transform": [
+        {"filter": "datum.Distance > min_x"},
+        {"filter": "datum.Distance < max_x"},
+        {"filter": "type_selection == null || datum.Type == type_selection"}
+        ],
+    "encoding": {
+        "x": {
+            "field": "Distance",
+            "type": "quantitative"
+        },
+        "y": {
+            "field": "Price",
+            "type": "quantitative"
+        }
+    },
+    "layer": [
+        {
+        "mark": "circle",
+        "encoding": {
+            "color": {
+                "field": "Type",
+                "type": "nominal"
+            },
+            "size": {
+                "field": "Bedroom2",
+                "type": "quantitative",
+                "title": "Bedrooms"
+            },
+            "opacity":{
+                "field": "Bedroom2",
+                "type": "quantitative",
+                "scale": {"reverse": true}
+            },
+            "tooltip":[
+                {"field": "Address", "type": "nominal"},
+                {"field": "Price", "type": "quantitative"},
+                {"field": "Distance", "type": "quantitative"}
+            ]      
+        }
+    },
+    {
+        "mark": {
+            "type": "text",
+            "align": "right",
+            "baseline": "middle",
+            "dx": -12,
+            "fontSize": 11.5,
+            "fontStyle": "italic"
+        },
+        "encoding": {
+            "text":{"field": "Address", "type": "nominal"},
+            "color":{"value": "black"},
+            "opacity": {
+                "condition": {
+                    "test": "datum['Address'] == '6 Cole St' || datum['Address'] == '35 Bevis St'|| datum['Address'] == '49 Lisson Gr' || datum['Address'] == '49 Mangarra Rd'" ,
+                    "value": 1
+                },
+                "value": 0
+            }            
+        }
+    } 
+    ]
+}
