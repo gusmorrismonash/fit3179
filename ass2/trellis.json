@@ -1,0 +1,17 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "data": {"url": "data/Melbourne_housing_FULL.csv"},
+    "mark": "bar",
+    "transform": [
+      {"filter": "datum.SellerG == 'Barry' || datum.SellerG == 'Buxton' || datum.SellerG == 'Jellis'|| datum.SellerG == 'Marshall'|| datum.SellerG == 'Nelson'|| datum.SellerG == 'Ray'|| datum.SellerG == 'hockingstuart'"}
+    ],
+    "encoding": {
+      "column": {"field": "Date", "type": "temporal", "timeUnit":"binnedutcyear"},
+      "x": {"field": "SellerG", "type": "nominal", "aggregate": "count"},
+      "y": {"field": "SellerG", "type": "nominal"},
+      "color": {"field": "Type", "type": "nominal"}
+    }
+  }
+  
+  
+  
