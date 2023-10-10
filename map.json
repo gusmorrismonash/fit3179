@@ -1,0 +1,39 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width": 800,
+    "height": 600,
+    "title": "Properties in Melbourne",
+    "projection": {"type": "mercator"},
+    "config": {
+        "style": {
+          "cell": {
+            "stroke": "transparent"
+          }
+        }
+    },
+    "layer": [
+        {
+        "data": {
+            "url": "data/vic_localities.json",
+            "format": {"type": "topojson", "feature": "vic_localities"}
+        },
+        "mark": {"type": "geoshape", "fill": "lightgray", "stroke": "white"}
+        },
+        {
+            "data": {
+                "url":"data/Melbourne_housing_FULL.csv"
+            },
+            "mark": {"type": "circle", "tooltip": {"content": "data"}},
+            "encoding": {
+                "longitude": {"field": "Longtitude", "type":"quantitative"},
+                "latitude": {"field": "Lattitude", "type":"quantitative"},
+                "color": {
+                    "field": "Price",
+                    "type": "quantitative",
+                    "scale": {"scheme":"blueorange","domainMid": 3000000}
+                }
+            }
+        }
+    ]
+    
+}
