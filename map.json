@@ -5,6 +5,7 @@
     "title": "Properties in Melbourne",
     "projection": {"type": "mercator"},
     "config": {
+        "background": "aliceblue",
         "style": {
           "cell": {
             "stroke": "transparent"
@@ -23,14 +24,32 @@
             "data": {
                 "url":"data/Melbourne_housing_FULL.csv"
             },
-            "mark": {"type": "circle", "tooltip": {"content": "data"}},
+            "mark": {"type": "circle", "tooltip": {"content": "data"}, "size": 5},
             "encoding": {
                 "longitude": {"field": "Longtitude", "type":"quantitative"},
                 "latitude": {"field": "Lattitude", "type":"quantitative"},
+                "tooltip":[
+                    {"field": "Address", "type": "nominal"},
+                    {"field": "Suburb", "type": "nominal"},
+                    {"field": "Price", "type": "quantitative"},
+                    {"field": "Landsize", "type": "quantitative"},
+                    {"field": "Distance", "type": "quantitative"}
+                ],
                 "color": {
                     "field": "Price",
                     "type": "quantitative",
-                    "scale": {"scheme":"blueorange","domainMid": 3000000}
+                    "scale": {"scheme":"yelloworangered","domainMid": 3000000},
+                    "legend": {
+                        "orient": "none",
+                        "direction": "horizontal",
+                        "legendX": 85,
+                        "legendY": 530,
+                        "fillColor": "white",
+                        "padding": 5,
+                        "gradientLength": 200,
+                        "strokeColor": "grey",
+                        "cornerRadius": 5
+                    }
                 }
             }
         }

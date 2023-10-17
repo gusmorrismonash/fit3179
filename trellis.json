@@ -2,6 +2,13 @@
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "data": {"url": "data/Melbourne_housing_FULL.csv"},
     "mark": "bar",
+    "width": 130,
+    "config": {
+      "customFormatTypes": true,
+      "area": {"align":"right"},
+      "padding": {"right": 100},
+      "background":"aliceblue"
+  },
     "transform": [
       {"filter": "datum.SellerG == 'Barry' || datum.SellerG == 'Buxton' || datum.SellerG == 'Jellis'|| datum.SellerG == 'Marshall'|| datum.SellerG == 'Nelson'|| datum.SellerG == 'Ray'|| datum.SellerG == 'hockingstuart'"}
     ],
@@ -9,7 +16,21 @@
       "column": {"field": "Date", "type": "temporal", "timeUnit":"binnedutcyear"},
       "x": {"field": "SellerG", "type": "nominal", "aggregate": "count"},
       "y": {"field": "SellerG", "type": "nominal"},
-      "color": {"field": "Type", "type": "nominal"}
+      "color": {
+        "field": "Type",
+        "type": "nominal",
+        "legend": {
+          "orient": "none",
+          "direction": "horizontal",
+          "legendX": 205,
+          "legendY": 190,
+          "fillColor": "white",
+          "padding": 5,
+          "gradientLength": 200,
+          "strokeColor": "grey",
+          "cornerRadius": 5,
+          "labelExpr": "{'h': 'House', 't': 'Townhouse', 'u': 'Unit'}[datum.label]"
+        }}
     }
   }
   

@@ -2,10 +2,11 @@
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "description": "Stock prices of 5 Tech Companies over Time.",
     "data": {"url": "data/Melbourne_housing_FULL.csv"},
+    "config": {"background":"aliceblue"},
     "vconcat": [{
     "height": 300,
     "width": 625,
-    "mark": "line",
+    "mark": "line",    
     "encoding": {
       "x": {"field": "Date",
             "type": "temporal",
@@ -13,7 +14,22 @@
             "scale": {"domain": {"param": "brush"}}
         },
         "y": {"aggregate": "mean", "field": "Price"},
-        "color": {"field": "Type", "type": "nominal"}
+        "color": {
+          "field": "Type",
+          "type": "nominal",
+          "legend": {
+            "orient": "none",
+            "direction": "vertical",
+            "legendX": 535,
+            "legendY": 10,
+            "fillColor": "white",
+            "padding": 5,
+            "gradientLength": 200,
+            "strokeColor": "grey",
+            "cornerRadius": 5,
+            "labelExpr": "{'h': 'House', 't': 'Townhouse', 'u': 'Unit'}[datum.label]"
+          }
+        }
     }
   },
     {"height": 100,
@@ -32,6 +48,6 @@
       }
       }
   ]
-  }
+}
   
   

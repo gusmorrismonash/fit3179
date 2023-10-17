@@ -1,0 +1,58 @@
+{
+    "data": {
+      "url": "data/Melbourne_housing_FULL.csv"
+    },
+    "params": [{
+        "name": "min_x",
+        "value": 50,
+        "bind": {
+          "input": "range",
+          "min": 0,
+          "max": 12000000
+        }
+      }, {
+        "name": "max_x",
+        "value": 250,
+        "bind": {
+          "input": "range",
+          "min": 0,
+          "max": 12000000
+        }
+      },{
+        "name": "use_custom_x",
+        "value": true,
+        "bind": {
+          "input": "checkbox"
+        }
+      }],
+    "width": 600,
+    "height": 400,
+    "mark": {
+      "type":  "circle",
+      "clip": true,
+      "opacity": 0.8,
+      "stroke": "black",
+      "strokeWidth": 1
+    },
+    "encoding": {
+      "x": {
+        "field": "Price",
+        "type": "quantitative",
+        "scale": {
+            "domainRaw": {"expr": "use_custom_x ? [min_x, max_x] : null"}
+        },
+        "axis": {"grid": false}
+      },
+      "y": {"field": "Regionname", "type": "nominal", "axis": {"title": ""}},
+      "size": {
+        "field": "Landsize",
+        "type": "quantitative",
+        "title": "Size",
+        "scale": {"type": "log", "domain": [10, 10000000]}
+      },
+      "color": {
+        "field": "Regionname",
+        "type": "nominal"
+      }
+    }
+  }

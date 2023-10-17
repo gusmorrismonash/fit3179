@@ -1,8 +1,9 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "width": 400,
-    "height": 400,
+    "width": 420,
+    "height": 300,
     "title": "Price vs Distance from CBD",
+    "config": {"background":"aliceblue"},
     "data": {
         "url": "data/Melbourne_housing_FULL.csv"
     },
@@ -13,17 +14,15 @@
                 "input": "select",
                 "options": [
                     null,
-                    "h",
-                    "t",
-                    "u"
+                    "Eastern Metropolitan",
+                    "Northern Metropolitan",
+                    "South-Eastern Metropolitan",
+                    "Southern Metropolitan"
                 ],
                 "labels": [
-                    "Show All",
-                    "House",
-                    "Townhouse",
-                    "Unit"
+                    "Show All"
                 ],
-                "name": "Type Selection"
+                "name": "Region Selection"
             }
         },
         {
@@ -32,24 +31,25 @@
         "bind": {
           "input": "range",
           "min": 0,
-          "max": 50,
+          "max": 20,
           "name": "Min Distance"
         }
     },
     {
         "name": "max_x",
-        "value": 50,
+        "value": 20,
         "bind": {
           "input": "range",
           "min": 0,
-          "max": 50,
+          "max": 20,
           "name": "Max Distance"
         }
       }],
     "transform": [
         {"filter": "datum.Distance > min_x"},
         {"filter": "datum.Distance < max_x"},
-        {"filter": "type_selection == null || datum.Type == type_selection"}
+        {"filter": "datum.Price > 4000000"},
+        {"filter": "type_selection == null || datum.Regionname == type_selection"}
         ],
     "encoding": {
         "x": {
@@ -58,6 +58,7 @@
         },
         "y": {
             "field": "Price",
+            "scale": {"domain": [4000000, 12000000]},
             "type": "quantitative"
         }
     },
@@ -66,16 +67,40 @@
         "mark": "circle",
         "encoding": {
             "color": {
-                "field": "Type",
-                "type": "nominal"
+                "field": "Regionname",
+                "type": "nominal",
+                "title": "Region Name",
+                "scale": {
+                    "domain": ["Eastern Metropolitan", "Northern Metropolitan", "South-Eastern Metropolitan",  "Southern Metropolitan"],
+                     "range": ["#d62728","#ff7f0e", "#98df8a", "#1f77b4"]},
+                "legend": {
+                    "orient": "none",
+                    "direction": "vertical",
+                    "legendX": 265,
+                    "legendY": 7,
+                    "fillColor": "white",
+                    "padding": 5,
+                    "strokeColor": "grey",
+                    "cornerRadius": 5
+                }
             },
             "size": {
-                "field": "Bedroom2",
+                "field": "Landsize",
                 "type": "quantitative",
-                "title": "Bedrooms"
+                "title": "Landize",
+                "legend": {
+                    "orient": "none",
+                    "direction": "vertical",
+                    "legendX": 427,
+                    "legendY": 7,
+                    "fillColor": "white",
+                    "padding": 5,
+                    "strokeColor": "grey",
+                    "cornerRadius": 5
+                }
             },
             "opacity":{
-                "field": "Bedroom2",
+                "field": "Landsize",
                 "type": "quantitative",
                 "scale": {"reverse": true}
             },

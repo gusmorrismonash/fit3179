@@ -3,12 +3,12 @@ body *{
 }
 
 h1 {
-    font-weight: 2000;
+    font-weight: 10000;
 }
 
 .page {
     width: 850px;
-    background-color: white;
+    background-color: aliceblue;
     margin: auto;
     padding: 50px;
     padding-top: 35px;
